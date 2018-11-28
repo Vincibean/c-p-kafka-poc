@@ -15,7 +15,7 @@ def dockerSettings(debugPort: Option[Int] = None) = Seq(
     val projectDir = "/project/"
 
     new Dockerfile {
-      from("saumitras01/java:1.8.0_111")
+      from("openjdk")
       add(artifactSource, artifactTargetPath)
       copy(scriptSourceDir, projectDir)
       entryPoint(s"/project/start.sh")
