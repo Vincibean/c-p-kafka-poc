@@ -1,6 +1,7 @@
-Code for blog http://saumitra.me/blog/deploying-kafka-dependent-scala-microservices-with-docker-and-sbt/
+# Apache Kafka Playground
+A fork of [saumitras](https://github.com/saumitras)'s [kafka-twitter-docker](https://github.com/saumitras/kafka-twitter-docker)
 
-To try it out:
+## How to run it
 
 ```
 $ git clone https://github.com/saumitras/kafka-twitter-docker
