@@ -21,7 +21,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   
   tweet-producer:
-    image: saumitras01/tweet-producer-app:latest
+    image: vincibean/tweet-producer-app:latest
     ports:
       - "8080:8080"
     tty: true
@@ -29,7 +29,7 @@ services:
       - kafka
   
   tweet-consumer:
-    image: saumitras01/tweet-consumer-app:latest
+    image: vincibean/tweet-consumer-app:latest
     ports:
       - "8081:8081"
     tty: true
