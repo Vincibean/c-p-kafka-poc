@@ -16,8 +16,7 @@ object Dependencies {
   )
   
   private lazy val twitter = Seq(
-    "org.twitter4j" % "twitter4j-core" % "4.0.4",
-    "org.twitter4j" % "twitter4j-stream" % "4.0.4",
+    "com.danielasfregola" %% "twitter4s" % "5.5"
   )
 
 }
