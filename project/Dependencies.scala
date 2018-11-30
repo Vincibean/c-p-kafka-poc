@@ -2,14 +2,22 @@ import sbt._
 
 object Dependencies {
 
-  lazy val producerDeps: Seq[ModuleID] = Seq(
+  lazy val producerDeps: Seq[ModuleID] = twitter ++ kafka
+
+  lazy val consumerDeps: Seq[ModuleID] = kafka
+
+  private lazy val kafka = Seq(
+    "org.apache.kafka" % "kafka_2.11" % "0.10.0.0" excludeAll(
+      ExclusionRule("org.slf4j", "slf4j-log4j12"),
+      ExclusionRule("javax.jms", "jms"),
+      ExclusionRule("com.sun.jdmk", "jmxtools"),
+      ExclusionRule("com.sun.jmx", "jmxri")
+    )
+  )
+  
+  private lazy val twitter = Seq(
     "org.twitter4j" % "twitter4j-core" % "4.0.4",
     "org.twitter4j" % "twitter4j-stream" % "4.0.4",
-    "org.apache.kafka" % "kafka_2.11" % "0.10.0.0" exclude("org.slf4j", "slf4j-log4j12") exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri")
   )
-  
-  lazy val consumerDeps: Seq[ModuleID] = Seq(
-    "org.apache.kafka" % "kafka_2.11" % "0.10.0.0" exclude("org.slf4j", "slf4j-log4j12") exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri")
-  )
-  
+
 }
