@@ -7,7 +7,7 @@ object Dependencies {
   lazy val consumerDeps: Seq[ModuleID] = kafka
 
   private lazy val kafka = Seq(
-    "org.apache.kafka" % "kafka_2.11" % "0.10.0.0" excludeAll(
+    "org.apache.kafka" %% "kafka" % "2.1.0" excludeAll(
       ExclusionRule("org.slf4j", "slf4j-log4j12"),
       ExclusionRule("javax.jms", "jms"),
       ExclusionRule("com.sun.jdmk", "jmxtools"),

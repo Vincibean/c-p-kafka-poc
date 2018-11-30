@@ -1,13 +1,15 @@
 package org.vincibean.kafka.playground.consumer
 
+import java.time.Duration
 import java.util.Properties
 
-import kafka.consumer.{Consumer, ConsumerConfig, Whitelist}
-import kafka.serializer.DefaultDecoder
+import org.apache.kafka.clients.consumer.KafkaConsumer
+
+import scala.collection.JavaConverters._
 
 object TweetConsumer extends App {
 
-  val ZK_HOST = "zookeeper:2181" //change it to localhost:2181 if not connecting through docker
+  val ZK_HOST = "zookeeper:2181"
   val TOPIC = "tweets"
 
   private val props = new Properties()
@@ -15,30 +17,21 @@ object TweetConsumer extends App {
   props.put("zookeeper.connect", ZK_HOST)
   props.put("auto.offset.reset", "smallest")
   props.put("consumer.timeout.ms", "120000")
-  props.put("zookeeper.connection.timeout.ms","20000")
+  props.put("zookeeper.connection.timeout.ms", "20000")
   props.put("auto.commit.interval.ms", "10000")
 
-  private val consumerConfig = new ConsumerConfig(props)
-  private val consumerConnector = Consumer.create(consumerConfig)
-  private val filterSpec = new Whitelist(TOPIC)
+  val consumer = new KafkaConsumer[String, String](props)
 
-  def read() = try {
-    val streams = consumerConnector.createMessageStreamsByFilter(filterSpec, 1,
-      new DefaultDecoder(), new DefaultDecoder())(0)
+  consumer.subscribe(java.util.Collections.singletonList(TOPIC))
 
-    lazy val iterator = streams.iterator()
-
-    while (iterator.hasNext()) {
-      val tweet = iterator.next().message().map(_.toChar).mkString
+  while (true) {
+    val records = consumer.poll(Duration.ofMillis(100))
+    for (record <- records.asScala) {
+      val tweet = record.value()
       val numTags = tweet.count(_ == '#')
       println(s"[Consumer] [TagCount=$numTags] $tweet")
+      println(record)
     }
-
-  } catch {
-    case ex: Exception =>
-      ex.printStackTrace()
   }
-
-  read()
 
 }
