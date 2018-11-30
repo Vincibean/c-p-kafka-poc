@@ -1,7 +1,9 @@
+package org.vincibean.kafka.playground.consumer
+
 import java.util.Properties
 
-import kafka.serializer.DefaultDecoder
 import kafka.consumer.{Consumer, ConsumerConfig, Whitelist}
+import kafka.serializer.DefaultDecoder
 
 object TweetConsumer extends App {
 

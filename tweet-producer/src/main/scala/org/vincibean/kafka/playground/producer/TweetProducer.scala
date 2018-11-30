@@ -1,4 +1,7 @@
+package org.vincibean.kafka.playground.producer
+
 import java.util.Properties
+
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import twitter4j._
 import twitter4j.conf.ConfigurationBuilder
@@ -54,4 +57,3 @@ object TweetProducer extends App {
   startTweetStream()
 
 }
-
